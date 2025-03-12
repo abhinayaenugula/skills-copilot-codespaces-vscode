@@ -1,27 +1,13 @@
 // create web server
-var express = require('express');
-var app = express();
-var fs = require('fs');
-var bodyParser = require('body-parser');
-var comments = require('./comments.json');
+const express = require('express');
+const app = express();
 
-app.use(express.static('public'));
-app.use(bodyParser.json());
-
-app.get('/comments', function(req, res) {
-  res.json(comments);
+// create a route
+app.get('/comments', (req, res) => {
+  res.send('You have reached the comments route');
 });
 
-app.post('/comments', function(req, res) {
-  comments.push(req.body);
-  fs.writeFile('comments.json', JSON.stringify(comments, null, 4), function(err) {
-    if (err) {
-      console.log(err);
-    }
-  });
-  res.json(comments);
-});
-
-app.listen(3000, function() {
-  console.log('Server is running');
+// start the server
+app.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000');
 });
